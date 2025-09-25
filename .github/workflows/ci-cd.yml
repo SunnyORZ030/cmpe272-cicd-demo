@@ -23,7 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt pytest
       - name: Run tests
-        run: pytest -q
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          echo "PWD: $PWD"
+          ls -la
+          python -m pytest -q
 
   build-and-push:
     if: github.event_name == 'push'
